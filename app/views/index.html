@@ -1,44 +1,73 @@
-
 {% extends "layout.html" %}
 
 {% block pageTitle %}
-  GOV.UK Prototype Kit
+  Question page
+{% endblock %}
+
+{% block beforeContent %}
+  <a class="govuk-back-link" href="/url/of/previous/page">Back</a>
 {% endblock %}
 
 {% block content %}
 
   <div class="govuk-grid-row">
     <div class="govuk-grid-column-two-thirds">
-      <h1 class="govuk-heading-xl">
-        The GOV.UK Prototype Kit
-        <span class="govuk-caption-xl">{{releaseVersion}}</span>
-      </h1>{{releaseVersion | log }}
-      <p>
-        This kit lets you rapidly create HTML prototypes of GOV.UK services.
-      </p>
 
-      <p>
-        It contains all you need to prototype anything from simple static pages to complex, data-driven transactions.
-      </p>
+      <h1 class="govuk-heading-xl">What would you like to report?</h1>
 
-      <h2 class="govuk-heading-m">About this page</h2>
+      <form class="form" action="/road-traffic-incident" method="post">
 
-      <p>We recommend you add links to your prototype to this page, rather than delete it.
-        You'll find this page in the kit at '/app/views/index.html'.</p>
+        <p>What would you like to report?</p>
 
-      <p>You can change the service name by editing the file '/app/config.js'.</p>
+        {% from "govuk/components/input/macro.njk" import govukInput %}
 
-      <h2 class="govuk-heading-m">Examples and documentation</h2>
+        {{govukInput({
+          label: {
+            text: "Briefly describe your event to report"
+          },
+          id: "report",
+          name: "report"
+        }) }}
 
-      <ul class="govuk-list govuk-list--bullet">
-        <li><a href="/docs/tutorials-and-examples">Example pages and documentation</a></li>
-        <li>
-          <a href="https://design-system.service.gov.uk">
-            GOV.UK Design System
-          </a>
-        </li>
-      </ul>
+        <button class="govuk-button" data-module="govuk-button">Continue</button>
+
+      </form>
+
     </div>
-</div>
+
+    <div class="govuk-grid-column-one-third">
+
+      <aside class="app-related-items" role="complementary">
+        <h2 class="govuk-heading-m" id="subsection-title">
+          Reporting services
+        </h2>
+        <nav role="navigation" aria-labelledby="subsection-title">
+          <ul class="govuk-list govuk-!-font-size-16">
+            <li>
+              <a href="#">
+                Report flytipping
+              </a>
+            </li>
+            <li>
+              <a href="#">
+                Report lost item
+              </a>
+            </li>
+            <li>
+              <a href="#">
+                Report vandalism
+              </a>
+            </li>
+            <li>
+              <a href="#" class="govuk-!-font-weight-bold">
+                More <span class="govuk-visually-hidden">in Subsection</span>
+              </a>
+            </li>
+          </ul>
+        </nav>
+      </aside>
+
+    </div>
+  </div>
 
 {% endblock %}
