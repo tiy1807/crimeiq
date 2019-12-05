@@ -1,5 +1,9 @@
 {% extends "layout.html" %}
 
+{% set serviceName %}
+Report vandalism
+{% endset %}
+
 {% block pageTitle %}
   Start page example
 {% endblock %}
@@ -31,18 +35,18 @@
 
       <h1 class="govuk-heading-xl">
         {% if serviceName %} {{ serviceName }} {% endif %}
-        Report a non-emergency
       </h1>
 
       <p>Use this service to:</p>
 
       <ul class="govuk-list govuk-list--bullet">
-        <li>find the service you need to report</li>
+        <li>report graffiti</li>
+        <li>report damage to property</li>
       </ul>
 
-      <p>Registering takes around 5 minutes.</p>
+      <p>Reporting takes around 5 minutes.</p>
 
-      <a href="/input" role="button" draggable="false" class="govuk-button govuk-button--start govuk-!-margin-top-2 govuk-!-margin-bottom-8"  data-module="govuk-button">
+      <a href="vandalism/info" role="button" draggable="false" class="govuk-button govuk-button--start govuk-!-margin-top-2 govuk-!-margin-bottom-8"  data-module="govuk-button">
         Start now
         <svg class="govuk-button__start-icon" xmlns="http://www.w3.org/2000/svg" width="17.5" height="19" viewBox="0 0 33 40" role="presentation" focusable="false">
           <path fill="currentColor" d="M0 0h13l20 20-20 20H0l20-20z"></path>
@@ -51,7 +55,9 @@
 
       <h2 class="govuk-heading-m">Before you start</h2>
 
-      <p>You can also <a href="#">register by post</a>.</p>
+      <p>If it's an emergency dial 999.</p>
+
+      <p>You can also dial 101.</p>
 
       <p>The online service is also available in <a href="#">Welsh (Cymraeg)</a>.</p>
 
@@ -61,7 +67,7 @@
 
       <aside class="app-related-items" role="complementary">
         <h2 class="govuk-heading-m" id="subsection-title">
-          Reporting services
+          Subsection
         </h2>
         <nav role="navigation" aria-labelledby="subsection-title">
           <ul class="govuk-list govuk-!-font-size-16">
@@ -76,17 +82,12 @@
               </a>
             </li>
             <li>
-              <a href="/vandalism/start">
-                Report vandalism
+              <a href="#">
+                Report theft
               </a>
             </li>
             <li>
-              <a href="/road-traffic-incident/start">
-                Report road traffic incident
-              </a>
-            </li>
-            <li>
-              <a href="/service-list" class="govuk-!-font-weight-bold">
+              <a href="#" class="govuk-!-font-weight-bold">
                 More <span class="govuk-visually-hidden">in Subsection</span>
               </a>
             </li>
