@@ -1,37 +1,59 @@
 {% extends "layout.html" %}
 
 {% block pageTitle %}
-  Question page
+  Start page example
+{% endblock %}
+
+{% block header %}
+  <!-- Blank header with no service name for the start page -->
+  {{ govukHeader() }}
 {% endblock %}
 
 {% block beforeContent %}
-  <a class="govuk-back-link" href="/url/of/previous/page">Back</a>
+  <div class="govuk-breadcrumbs">
+    <ol class="govuk-breadcrumbs__list">
+      <li class="govuk-breadcrumbs__list-item">
+        <a class="govuk-breadcrumbs__link" href="https://www.gov.uk">Home</a>
+      </li>
+      <li class="govuk-breadcrumbs__list-item">
+        <a class="govuk-breadcrumbs__link" href="#">Section</a>
+      </li>
+      <li class="govuk-breadcrumbs__list-item">
+        <a class="govuk-breadcrumbs__link">Subsection</a>
+      </li>
+    </ol>
+  </div>
 {% endblock %}
 
 {% block content %}
-
   <div class="govuk-grid-row">
     <div class="govuk-grid-column-two-thirds">
 
-      <h1 class="govuk-heading-xl">What would you like to report?</h1>
+      <h1 class="govuk-heading-xl">
+        {% if serviceName %} {{ serviceName }} {% endif %}
+        Report a non-emergency
+      </h1>
 
-      <form class="form" action="/road-traffic-incident" method="post">
+      <p>Use this service to:</p>
 
-        <p>What would you like to report?</p>
+      <ul class="govuk-list govuk-list--bullet">
+        <li>find the service you need to report</li>
+      </ul>
 
-        {% from "govuk/components/input/macro.njk" import govukInput %}
+      <p>Registering takes around 5 minutes.</p>
 
-        {{govukInput({
-          label: {
-            text: "Briefly describe your event to report"
-          },
-          id: "report",
-          name: "report"
-        }) }}
+      <a href="#" role="button" draggable="false" class="govuk-button govuk-button--start govuk-!-margin-top-2 govuk-!-margin-bottom-8"  data-module="govuk-button">
+        Start now
+        <svg class="govuk-button__start-icon" xmlns="http://www.w3.org/2000/svg" width="17.5" height="19" viewBox="0 0 33 40" role="presentation" focusable="false">
+          <path fill="currentColor" d="M0 0h13l20 20-20 20H0l20-20z"></path>
+        </svg>
+      </a>
 
-        <button class="govuk-button" data-module="govuk-button">Continue</button>
+      <h2 class="govuk-heading-m">Before you start</h2>
 
-      </form>
+      <p>You can also <a href="#">register by post</a>.</p>
+
+      <p>The online service is also available in <a href="#">Welsh (Cymraeg)</a>.</p>
 
     </div>
 
@@ -59,6 +81,11 @@
               </a>
             </li>
             <li>
+              <a href="#">
+                Report road traffic incident
+              </a>
+            </li>
+            <li>
               <a href="#" class="govuk-!-font-weight-bold">
                 More <span class="govuk-visually-hidden">in Subsection</span>
               </a>
@@ -69,5 +96,4 @@
 
     </div>
   </div>
-
 {% endblock %}
