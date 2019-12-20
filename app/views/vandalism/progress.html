@@ -1,0 +1,101 @@
+{% extends "layout.html" %}
+
+{% set serviceName %}
+Report Vandalism
+{% endset %}
+
+{% block pageTitle %}
+  Task list
+{% endblock %}
+
+{% block content %}
+
+  <div class="govuk-grid-row">
+    <div class="govuk-grid-column-two-thirds">
+      <h1 class="govuk-heading-xl">
+        History of your report of vandalism (<strong>HDJ2123F</strong>)
+      </h1>
+
+      <ol class="app-task-list">
+        <li>
+          <ul class="app-task-list__items">
+            <li class="app-task-list__item">
+              <span class="app-task-list__task-name">
+                <p id="incident-reported">
+                  Incident Reported
+                </p>
+              </span>
+              <strong class="govuk-tag app-task-list__task-completed" id="incident-reported">20/12/2019</strong>
+            </li>
+            <li class="app-task-list__item">
+              <span class="app-task-list__task-name">
+                <p id="sent-to">
+                  Sent to Metropolitan Police
+                </p>
+              </span>
+              <strong class="govuk-tag app-task-list__task-completed" id="sent-to">20/12/2019</strong>
+            </li>
+            <li class="app-task-list__item">
+              <span class="app-task-list__task-name">
+                <p id="triage">
+                  Officer to visit
+                </p>
+              </span>
+              <strong class="govuk-tag app-task-list__task-completed" id="triage">22/12/2019</strong>
+            </li>
+            <li class="app-task-list__item">
+              <span class="app-task-list__task-name">
+                <p id="triage">
+                  Cleaned up
+                </p>
+              </span>
+              <strong class="govuk-tag app-task-list__task-completed" id="triage">29/12/2019</strong>
+            </li>
+          </ul>
+        </li>
+      </ol>
+
+    </div>
+    <div class="govuk-grid-column-one-third">
+
+      <aside class="app-related-items" role="complementary">
+        <h2 class="govuk-heading-m" id="subsection-title">
+          Reporting services
+        </h2>
+        <nav role="navigation" aria-labelledby="subsection-title">
+          <ul class="govuk-list govuk-!-font-size-16">
+            <li>
+              <a href="#">
+                Report flytipping
+              </a>
+            </li>
+            <li>
+              <a href="#">
+                Report lost item
+              </a>
+            </li>
+            <li>
+              <a href="/vandalism/start">
+                Report vandalism
+              </a>
+            </li>
+            <li>
+              <a href="/road-traffic-incident/start">
+                Report road traffic incident
+              </a>
+            </li>
+            <li>
+              <a href="/service-list" class="govuk-!-font-weight-bold">
+                More <span class="govuk-visually-hidden">in Subsection</span>
+              </a>
+            </li>
+          </ul>
+        </nav>
+      </aside>
+
+    </div>
+  </div>
+
+
+
+{% endblock %}
