@@ -1,4 +1,4 @@
-{% extends "layout.html" %}
+{% extends "layout_map.html" %}
 
 {% set serviceName %}
 Report a Road Traffic Incident
@@ -64,6 +64,8 @@ Report a Road Traffic Incident
           }
         }) }}
 
+        <div id="mapid"></div>
+
         {{ govukInput({
           label: {
             text: "Postcode"
@@ -71,6 +73,8 @@ Report a Road Traffic Incident
           id: "postcode",
           name: "postcode"
         }) }}
+
+
 
         <button class="govuk-button" data-module="govuk-button">Continue</button>
 
