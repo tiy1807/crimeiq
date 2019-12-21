@@ -39,14 +39,6 @@ Report a Road Traffic Incident
           name: "email"
         }) }}
 
-        {{ govukInput({
-          label: {
-            text: "Registration Plate"
-          },
-          id: "reg",
-          name: "reg"
-        }) }}
-
         {% from "govuk/components/date-input/macro.njk" import govukDateInput %}
 
         {{ govukDateInput({
