@@ -53,6 +53,7 @@ if (document.getElementById('incidents')) {
     window.console.info(date)
 
     url = "https://data.police.uk/api/crimes-at-location?date=" + date + "&lat=" + lat + "&lng=" + long
+    //url = "https://data.police.uk/api/crimes-street/all-crime?lat=" + lat + "&lng=" + long + "&date=" + date
     xmlHttp.open("GET", url , false ); // false for synchronous request
     xmlHttp.send( null );
     window.console.info(xmlHttp.responseText)
@@ -64,7 +65,12 @@ if (document.getElementById('incidents')) {
       for (var i = 0; i < response.length; i++) {
         window.console.info(response[i])
         window.console.info(response.length)
-        display_text += response[i]["month"] + " - " + response[i]["category"] + " - " + response[i]["location"]["street"]["name"] + " - " + response[i]["outcome_status"]["category"] + "<br>"
+        display_text += response[i]["month"] + " - " + response[i]["category"] + " - " + response[i]["location"]["street"]["name"]
+        if (response[i]["outcome_status"] != null) {
+          display_text += " - " + response[i]["outcome_status"]["category"] + "<br>"
+        } else {
+          display_text += "<br>"
+        }
       }
     }
     document.getElementById("incidents").innerHTML = display_text
