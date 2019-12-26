@@ -1,0 +1,44 @@
+{% extends "layout_map.html" %}
+
+{% set serviceName %}
+Report Vandalism
+{% endset %}
+
+{% block pageTitle %}
+  Question page
+{% endblock %}
+
+{% block beforeContent %}
+  <a class="govuk-back-link" href="/vandalism/start">Back</a>
+{% endblock %}
+
+{% block content %}
+
+  <div class="govuk-grid-row">
+    <div class="govuk-grid-column-two-thirds">
+
+      <form class="form" action="location" method="post">
+
+        {{ govukDateInput({
+          id: "incident-occured",
+          namePrefix: "incident-occured",
+          fieldset: {
+            legend: {
+              text: "When did you first notice the vandalism?",
+              isPageHeading: true,
+              classes: "govuk-fieldset__legend--xl"
+            }
+          },
+          hint: {
+            text: "For example, 12 11 2007"
+          }
+        }) }}
+
+        <button class="govuk-button" data-module="govuk-button">Continue</button>
+
+      </form>
+
+    </div>
+  </div>
+
+{% endblock %}

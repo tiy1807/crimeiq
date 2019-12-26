@@ -21,6 +21,35 @@ Report Vandalism
 
       <form class="form" action="confirmation" method="post">
 
+        {% from "govuk/components/file-upload/macro.njk" import govukFileUpload %}
+
+        {{ govukFileUpload({
+          id: "file-upload-1",
+          name: "file-upload-1",
+          label: {
+            text: "If you have a picture of the vandalism please upload it."
+          }
+        }) }}
+
+        <p>Locate on the map where the vandalism has taken place</p>
+
+        <div id="mapid"></div>
+
+        {{ govukDateInput({
+          id: "incident-occured",
+          namePrefix: "incident-occured",
+          fieldset: {
+            legend: {
+              text: "When did you first notice the vandalism?",
+              isPageHeading: false,
+              classes: "govuk-fieldset__legend--xl"
+            }
+          },
+          hint: {
+            text: "For example, 12 11 2007"
+          }
+        }) }}
+
         {% from "govuk/components/input/macro.njk" import govukInput %}
 
         {{ govukInput({
@@ -40,33 +69,6 @@ Report Vandalism
         }) }}
 
         {% from "govuk/components/date-input/macro.njk" import govukDateInput %}
-
-        {{ govukDateInput({
-          id: "incident-occured",
-          namePrefix: "incident-occured",
-          fieldset: {
-            legend: {
-              text: "When did the incident occur?",
-              isPageHeading: false,
-              classes: "govuk-fieldset__legend--xl"
-            }
-          },
-          hint: {
-            text: "For example, 12 11 2007"
-          }
-        }) }}
-
-        <div id="mapid"></div>
-
-        {{ govukInput({
-          label: {
-            text: "Postcode"
-          },
-          id: "postcode",
-          name: "postcode"
-        }) }}
-
-
 
         <button class="govuk-button" data-module="govuk-button">Continue</button>
 
