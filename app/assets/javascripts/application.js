@@ -75,3 +75,30 @@ if (document.getElementById('incidents')) {
     }
     document.getElementById("incidents").innerHTML = display_text
 }
+
+if (document.getElementById('responsible-la')) {
+  var xmlHttp = new XMLHttpRequest();
+  lat = localStorage.getItem("myGPSlat")
+  long = localStorage.getItem("myGPSlong")
+  xmlHttp.open("GET", "https://api.postcodes.io/postcodes?lon=" + long + "&lat=" + lat, false);
+  xmlHttp.send(null)
+  window.console.info(xmlHttp.responseText)
+  response = JSON.parse(xmlHttp.responseText)["result"]
+  postcode = response[0]["postcode"]
+  council = response[0]["admin_district"]
+  display_text = "This is being dealt with by " + council + " Council."
+  document.getElementById("responsible-la").innerHTML = display_text
+}
+
+if (document.getElementById('responsible-police')) {
+  var xmlHttp = new XMLHttpRequest();
+  lat = localStorage.getItem("myGPSlat")
+  long = localStorage.getItem("myGPSlong")
+  xmlHttp.open("GET", "https://data.police.uk/api/locate-neighbourhood?q=" + lat + "," + long, false);
+  xmlHttp.send(null)
+  window.console.info(xmlHttp.responseText)
+  response = JSON.parse(xmlHttp.responseText)
+  force = response["force"]
+  display_text = "This is being dealt with by " + force + " Police Force."
+  document.getElementById("responsible-police").innerHTML = display_text
+}
