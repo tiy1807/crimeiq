@@ -17,7 +17,9 @@ if (document.getElementById('mapid')) {
         attribution: 'Map data &copy; <a href="https://www.openstreetmap.org/">OpenStreetMap</a> contributors, <a href="https://creativecommons.org/licenses/by-sa/2.0/">CC-BY-SA</a>, Imagery © <a href="https://www.mapbox.com/">Mapbox</a>',
         maxZoom: 18,
         id: 'mapbox/streets-v11',
-        accessToken: 'pk.eyJ1IjoidHllbXMiLCJhIjoiY2szeTZueHR6MGl1aDNscWNzOHMxaTBjOSJ9.NDdp3cYXLIxzlGuO7ejyGw'
+        accessToken: 'pk.eyJ1IjoidHllbXMiLCJhIjoiY2szeTZueHR6MGl1aDNscWNzOHMxaTBjOSJ9.NDdp3cYXLIxzlGuO7ejyGw',
+        tileSize: 512,
+        zoomOffset: -1
     }).addTo(mymap);
 
     var marker = {}
