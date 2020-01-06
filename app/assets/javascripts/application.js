@@ -11,29 +11,38 @@ $(document).ready(function () {
 
 var x = document.getElementById('mapid')
 if (document.getElementById('mapid')) {
-    var mymap = window.L.map('mapid').setView([53.96, -1.0873], 13);
 
-    window.L.tileLayer('https://api.mapbox.com/styles/v1/{id}/tiles/{z}/{x}/{y}?access_token={accessToken}', {
-        attribution: 'Map data &copy; <a href="https://www.openstreetmap.org/">OpenStreetMap</a> contributors, <a href="https://creativecommons.org/licenses/by-sa/2.0/">CC-BY-SA</a>, Imagery © <a href="https://www.mapbox.com/">Mapbox</a>',
-        maxZoom: 18,
-        id: 'mapbox/streets-v11',
-        accessToken: 'pk.eyJ1IjoidHllbXMiLCJhIjoiY2szeTZueHR6MGl1aDNscWNzOHMxaTBjOSJ9.NDdp3cYXLIxzlGuO7ejyGw',
-        tileSize: 512,
-        zoomOffset: -1
-    }).addTo(mymap);
+    function showPosition(position) {
 
-    var marker = {}
+      var mymap = window.L.map('mapid').setView([position.coords.latitude, position.coords.longitude], 15);
 
-    function onMapClick(e) {
-        if (marker != undefined) {
-            mymap.removeLayer(marker)
-        };
-        marker = window.L.marker(e.latlng).addTo(mymap);
-        localStorage.setItem("myGPSlat",e.latlng.lat.toFixed(6))
-        localStorage.setItem("myGPSlong",e.latlng.lng.toFixed(6))
+      window.L.tileLayer('https://api.mapbox.com/styles/v1/{id}/tiles/{z}/{x}/{y}?access_token={accessToken}', {
+          attribution: 'Map data &copy; <a href="https://www.openstreetmap.org/">OpenStreetMap</a> contributors, <a href="https://creativecommons.org/licenses/by-sa/2.0/">CC-BY-SA</a>, Imagery © <a href="https://www.mapbox.com/">Mapbox</a>',
+          maxZoom: 18,
+          id: 'mapbox/streets-v11',
+          accessToken: 'pk.eyJ1IjoidHllbXMiLCJhIjoiY2szeTZueHR6MGl1aDNscWNzOHMxaTBjOSJ9.NDdp3cYXLIxzlGuO7ejyGw',
+          tileSize: 512,
+          zoomOffset: -1
+      }).addTo(mymap);
+
+      var marker = {}
+
+      function onMapClick(e) {
+          if (marker != undefined) {
+              mymap.removeLayer(marker)
+          };
+          marker = window.L.marker(e.latlng).addTo(mymap);
+          localStorage.setItem("myGPSlat",e.latlng.lat.toFixed(6))
+          localStorage.setItem("myGPSlong",e.latlng.lng.toFixed(6))
+      }
+
+      mymap.on('click', onMapClick);
+
     }
 
-    mymap.on('click', onMapClick);
+    if (navigator.geolocation) {
+      navigator.geolocation.getCurrentPosition(showPosition);
+    }
 }
 
 if (document.getElementById('incidents')) {
