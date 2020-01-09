@@ -110,6 +110,6 @@ if (document.getElementById('responsible-police')) {
   window.console.info(xmlHttp.responseText)
   response = JSON.parse(xmlHttp.responseText)
   force = response["force"]
-  display_text = "This is being dealt with by " + force + " Police Force."
+  display_text = "This is being dealt with by the " + force + " Police Force."
   document.getElementById("responsible-police").innerHTML = display_text
 }
