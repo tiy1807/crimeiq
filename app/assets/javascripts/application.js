@@ -29,7 +29,7 @@ if (document.getElementById('mapid')) {
 
       localStorage.setItem("myGPSlat",position.coords.latitude.toFixed(6))
       localStorage.setItem("myGPSlong",position.coords.longitude.toFixed(6))
-      marker = window.L.marker(position.coords).addTo(mymap);
+      marker = window.L.marker(L.latLng(position.coords.latitude, position.coords.longitude)).addTo(mymap);
 
       function onMapClick(e) {
           if (marker != undefined) {
@@ -38,6 +38,16 @@ if (document.getElementById('mapid')) {
           marker = window.L.marker(e.latlng).addTo(mymap);
           localStorage.setItem("myGPSlat",e.latlng.lat.toFixed(6))
           localStorage.setItem("myGPSlong",e.latlng.lng.toFixed(6))
+
+          var xmlHttp = new XMLHttpRequest();
+          xmlHttp.open("GET", "https://api.postcodes.io/postcodes?lon=" + e.latlng.lng.toFixed(6) + "&lat=" + e.latlng.lat.toFixed(6), false);
+          xmlHttp.send(null)
+          window.console.info(xmlHttp.responseText)
+          response = JSON.parse(xmlHttp.responseText)["result"]
+          postcode = response[0]["postcode"]
+          council = response[0]["admin_district"]
+          display_text = "You have selected " + postcode + " in " + council + ".<br>If different please select the location of the vandalism on the map below:"
+          document.getElementById("text-location").innerHTML = display_text
       }
 
       mymap.on('click', onMapClick);
@@ -121,16 +131,17 @@ if (document.getElementById('responsible-police')) {
 
 if (document.getElementById('text-location')) {
   function displayPosition(position) {
-    xmlHttp.open("GET", "https://api.postcodes.io/postcodes?lon=" + position.coords.longitude + "&lat=" + position.coords.latitutde, false);
+    var xmlHttp = new XMLHttpRequest();
+    xmlHttp.open("GET", "https://api.postcodes.io/postcodes?lon=" + position.coords.longitude + "&lat=" + position.coords.latitude, false);
     xmlHttp.send(null)
     window.console.info(xmlHttp.responseText)
     response = JSON.parse(xmlHttp.responseText)["result"]
     postcode = response[0]["postcode"]
     council = response[0]["admin_district"]
-    display_text = "Your location has been detected at " + postcode + " in " + council ".<br>If different please select the location of the vandalism on the map below:"
+    display_text = "Your location has been detected at " + postcode + " in " + council + ".<br>If different please select the location of the vandalism on the map below:"
     document.getElementById("text-location").innerHTML = display_text
   }
   if (navigator.geolocation) {
-    navigator.geolocation.displayPosition(showPosition);
+    navigator.geolocation.getCurrentPosition(displayPosition);
   }
 }
