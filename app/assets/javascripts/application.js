@@ -27,6 +27,10 @@ if (document.getElementById('mapid')) {
 
       var marker = {}
 
+      localStorage.setItem("myGPSlat",position.coords.latitude.toFixed(6))
+      localStorage.setItem("myGPSlong",position.coords.longitude.toFixed(6))
+      marker = window.L.marker(position.coords).addTo(mymap);
+
       function onMapClick(e) {
           if (marker != undefined) {
               mymap.removeLayer(marker)
@@ -112,4 +116,20 @@ if (document.getElementById('responsible-police')) {
   force = response["force"]
   display_text = "This is being dealt with by the " + force + " Police Force."
   document.getElementById("responsible-police").innerHTML = display_text
+}
+
+if (document.getElementById('text-location')) {
+  function displayPosition(position) {
+    xmlHttp.open("GET", "https://api.postcodes.io/postcodes?lon=" + position.coords.longitude + "&lat=" + position.coords.latitutde, false);
+    xmlHttp.send(null)
+    window.console.info(xmlHttp.responseText)
+    response = JSON.parse(xmlHttp.responseText)["result"]
+    postcode = response[0]["postcode"]
+    council = response[0]["admin_district"]
+    display_text = "Your location has been detected at " + postcode + " in " + council ".<br>If different please select the location of the vandalism on the map below:"
+    document.getElementById("text-location").innerHTML = display_text
+  }
+  if (navigator.geolocation) {
+    navigator.geolocation.displayPosition(showPosition);
+  }
 }

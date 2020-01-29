@@ -33,6 +33,13 @@
         {% if serviceName %} {{ serviceName }} {% endif %}
       </h1>
 
+      {% from "govuk/components/warning-text/macro.njk" import govukWarningText %}
+
+      {{ govukWarningText({
+        text: "If it's an emergency dial 999.",
+        iconFallbackText: "Warning"
+      }) }}
+
       <p>Use this service to:</p>
 
       <ul class="govuk-list govuk-list--bullet">
@@ -49,8 +56,6 @@
       </a>
 
       <h2 class="govuk-heading-m">Before you start</h2>
-
-      <p>If it's an emergency dial 999.</p>
 
       <p>You can also dial 101.</p>
 
