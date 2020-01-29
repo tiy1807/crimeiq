@@ -75,12 +75,13 @@ if (document.getElementById('incidents')) {
     response = JSON.parse(xmlHttp.responseText)
     display_text = ""
     if (response.length == 0) {
-      display_text = "No nearby incidents"
+      display_text = "There have been no recent incidents nearby"
     } else {
+      display_text = "The following have been reported recently. Click on an incident to add your infomation, or click my incident is new.<br>"
       for (var i = 0; i < response.length; i++) {
         window.console.info(response[i])
         window.console.info(response.length)
-        display_text += response[i]["month"] + " - " + response[i]["category"] + " - " + response[i]["location"]["street"]["name"]
+        display_text += response[i]["category"] + " - " + response[i]["location"]["street"]["name"]
         if (response[i]["outcome_status"] != null) {
           display_text += " - " + response[i]["outcome_status"]["category"] + "<br>"
         } else {
