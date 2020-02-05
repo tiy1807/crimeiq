@@ -4,9 +4,24 @@ const router = express.Router()
 var NotifyClient = require('notifications-node-client').NotifyClient,
 notify = new NotifyClient(process.env.NOTIFYAPIKEY);
 
+var XMLHttpRequest = require("xmlhttprequest").XMLHttpRequest
+
 // The URL here needs to match the URL of the page that the user is on
 // when they type in their email address
-router.post('/vandalism/personal', function (req, res) {
+router.post('/vandalism/send-confirmation-email', function (req, res) {
+  console.log(req)
+  console.log(req.query)
+  console.log(req.query.lat)
+  console.log(req.query.lon)
+  lat = req.query.lat
+  long = req.query.lon
+  var xmlHttp = new XMLHttpRequest();
+  xmlHttp.open("GET", "https://api.postcodes.io/postcodes?lon=" + long + "&lat=" + lat, false);
+  xmlHttp.send(null)
+  console.info(xmlHttp.responseText)
+  response = JSON.parse(xmlHttp.responseText)["result"]
+  postcode = response[0]["postcode"]
+  council = response[0]["admin_district"]
 
   notify.sendEmail(
     // this long string is the template ID, copy it from the template
@@ -19,10 +34,10 @@ router.post('/vandalism/personal', function (req, res) {
     {
       personalisation: {
         incident: "graffiti",
-        street_name: "Farringdon Street",
+        street_name: postcode,
         name: "Thomas Yems",
         date: "19/02/2020",
-        council: "City of London Council",
+        council: council + " Council",
         reference: "HDJ2123F"
       },
       reference: "HDJ2123F"
@@ -37,7 +52,17 @@ router.post('/vandalism/personal', function (req, res) {
 
 notify2 = new NotifyClient(process.env.NOTIFYAPIKEY);
 
-router.get('/vandalism/send-progress-email', function (req, res) {
+router.post('/vandalism/send-progress-email', function (req, res) {
+
+  lat = req.query.lat
+  long = req.query.lon
+  var xmlHttp = new XMLHttpRequest();
+  xmlHttp.open("GET", "https://api.postcodes.io/postcodes?lon=" + long + "&lat=" + lat, false);
+  xmlHttp.send(null)
+  console.info(xmlHttp.responseText)
+  response = JSON.parse(xmlHttp.responseText)["result"]
+  postcode = response[0]["postcode"]
+  council = response[0]["admin_district"]
 
   notify2.sendEmail(
     // this long string is the template ID, copy it from the template
@@ -50,10 +75,10 @@ router.get('/vandalism/send-progress-email', function (req, res) {
     {
       personalisation: {
         incident: "graffiti",
-        street_name: "Farringdon Street",
+        street_name: postcode,
         name: "Thomas Yems",
         date: "19/02/2020",
-        council: "City of London Council",
+        council: council + " Council",
         reference: "HDJ2123F"
       },
       reference: "HDJ2123F"

@@ -145,3 +145,21 @@ if (document.getElementById('text-location')) {
     navigator.geolocation.getCurrentPosition(displayPosition);
   }
 }
+
+if (document.getElementById('send-confirmation-email')) {
+  lat = localStorage.getItem("myGPSlat")
+  long = localStorage.getItem("myGPSlong")
+  var xmlHttp = new XMLHttpRequest();
+  xmlHttp.open("POST", "/vandalism/send-confirmation-email?lon=" + long + "&lat=" + lat, false);
+  xmlHttp.send(null)
+  window.console.info(xmlHttp.responseText)
+}
+
+if (document.getElementById('send-progress-email')) {
+  lat = localStorage.getItem("myGPSlat")
+  long = localStorage.getItem("myGPSlong")
+  var xmlHttp = new XMLHttpRequest();
+  xmlHttp.open("POST", "/vandalism/send-progress-email?lon=" + long + "&lat=" + lat, false);
+  xmlHttp.send(null)
+  window.console.info(xmlHttp.responseText)
+}
