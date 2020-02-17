@@ -109,6 +109,7 @@ if (document.getElementById('responsible-la')) {
     long = localStorage.getItem("myGPSlong")
     xmlHttp.open("GET", "https://api.postcodes.io/postcodes?lon=" + long + "&lat=" + lat, true);
     xmlHttp.onerror = function () {
+      window.console.info("XMLHTTP Error: displaying default text")
       display_text = "This is being dealt with by the City of London Council."
       document.getElementById("responsible-la").innerHTML = display_text
     }
@@ -126,6 +127,7 @@ if (document.getElementById('responsible-la')) {
   }
   catch (err)
   {
+    window.console.info("JS Error: displaying default text")
     display_text = "This is being dealt with by the City of London Council."
     document.getElementById("responsible-la").innerHTML = display_text
   }
@@ -140,6 +142,7 @@ if (document.getElementById('responsible-police')) {
     //xmlHttp.setRequestHeader("Access-Control-Allow-Origin","*")
     //xmlHttp.setRequestHeader("Access-Control-Allow-Methods", "GET")
     xmlHttp.onerror = function () {
+      window.console.info("XMLHTTP Error: displaying default text")
       display_text = "This is being dealt with by the City of London Police Force."
       document.getElementById("responsible-police").innerHTML = display_text
     }
@@ -155,7 +158,9 @@ if (document.getElementById('responsible-police')) {
     xmlHttp.send()
   }
   catch(err) {
-
+    window.console.info("JS Error: displaying default text")
+    display_text = "This is being dealt with by the City of London Police Force."
+    document.getElementById("responsible-police").innerHTML = display_text
   }
 }
 
