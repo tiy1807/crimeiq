@@ -103,46 +103,84 @@ if (document.getElementById('incidents')) {
 }
 
 if (document.getElementById('responsible-la')) {
-  var xmlHttp = new XMLHttpRequest();
-  lat = localStorage.getItem("myGPSlat")
-  long = localStorage.getItem("myGPSlong")
-  xmlHttp.open("GET", "https://api.postcodes.io/postcodes?lon=" + long + "&lat=" + lat, false);
-  xmlHttp.send(null)
-  window.console.info(xmlHttp.responseText)
-  response = JSON.parse(xmlHttp.responseText)["result"]
-  postcode = response[0]["postcode"]
-  council = response[0]["admin_district"]
-  display_text = "This is being dealt with by " + council + " Council."
-  document.getElementById("responsible-la").innerHTML = display_text
+  try {
+    var xmlHttp = new XMLHttpRequest();
+    lat = localStorage.getItem("myGPSlat")
+    long = localStorage.getItem("myGPSlong")
+    xmlHttp.open("GET", "https://api.postcodes.io/postcodes?lon=" + long + "&lat=" + lat, true);
+    xmlHttp.onreadystatechange = function () {
+      if (xmlHttp.readyState == 4) {
+        window.console.info(xmlHttp.responseText)
+        response = JSON.parse(xmlHttp.responseText)["result"]
+        postcode = response[0]["postcode"]
+        council = response[0]["admin_district"]
+        display_text = "This is being dealt with by " + council + " Council."
+        document.getElementById("responsible-la").innerHTML = display_text
+      }
+    }
+    xmlHttp.send()
+  }
+  catch (err)
+  {
+    display_text = "This is being dealt with by the City of London Council."
+    document.getElementById("responsible-la").innerHTML = display_text
+  }
 }
 
 if (document.getElementById('responsible-police')) {
-  var xmlHttp = new XMLHttpRequest();
-  lat = localStorage.getItem("myGPSlat")
-  long = localStorage.getItem("myGPSlong")
-  xmlHttp.open("GET", "https://data.police.uk/api/locate-neighbourhood?q=" + lat + "," + long, false);
-  xmlHttp.send(null)
-  window.console.info(xmlHttp.responseText)
-  response = JSON.parse(xmlHttp.responseText)
-  force = response["force"]
-  display_text = "This is being dealt with by the " + force + " Police Force."
-  document.getElementById("responsible-police").innerHTML = display_text
+  try {
+    var xmlHttp = new XMLHttpRequest();
+    lat = localStorage.getItem("myGPSlat")
+    long = localStorage.getItem("myGPSlong")
+    xmlHttp.open("GET", "https://data.police.uk/api/locate-neighbourhood?q=" + lat + "," + long, true);
+    //xmlHttp.setRequestHeader("Access-Control-Allow-Origin","*")
+    //xmlHttp.setRequestHeader("Access-Control-Allow-Methods", "GET")
+    xmlHttp.onreadystatechange = function () {
+      if (xmlHttp.readyState == 4) {
+        response = JSON.parse(xmlHttp.responseText)
+        window.console.info(response)
+        force = response["force"]
+        display_text = "This is being dealt with by the " + force + " Police Force."
+        document.getElementById("responsible-police").innerHTML = display_text
+      }
+    }
+    xmlHttp.send()
+  }
+  catch(err) {
+    display_text = "This is being dealt with by the City of London Police Force."
+    document.getElementById("responsible-police").innerHTML = display_text
+  }
 }
 
 if (document.getElementById('text-location')) {
   function displayPosition(position) {
     var xmlHttp = new XMLHttpRequest();
-    xmlHttp.open("GET", "https://api.postcodes.io/postcodes?lon=" + position.coords.longitude + "&lat=" + position.coords.latitude, false);
+    xmlHttp.open("GET", "https://api.postcodes.io/postcodes?lon=" + position.coords.longitude + "&lat=" + position.coords.latitude, true);
+    xmlHttp.onreadystatechange = function () {
+      if (xmlHttp.readyState == 4) {
+        window.console.info(xmlHttp.responseText)
+        response = JSON.parse(xmlHttp.responseText)["result"]
+        postcode = response[0]["postcode"]
+        council = response[0]["admin_district"]
+        display_text = "Your location has been detected at " + postcode + " in " + council + ".<br>If different please select the location of the vandalism on the map below:"
+        document.getElementById("text-location").innerHTML = display_text
+      }
+    }
     xmlHttp.send(null)
-    window.console.info(xmlHttp.responseText)
-    response = JSON.parse(xmlHttp.responseText)["result"]
-    postcode = response[0]["postcode"]
-    council = response[0]["admin_district"]
-    display_text = "Your location has been detected at " + postcode + " in " + council + ".<br>If different please select the location of the vandalism on the map below:"
-    document.getElementById("text-location").innerHTML = display_text
   }
-  if (navigator.geolocation) {
-    navigator.geolocation.getCurrentPosition(displayPosition);
+  try {
+    if (navigator.geolocation) {
+      navigator.geolocation.getCurrentPosition(displayPosition);
+    }
+    else {
+      display_text = "Your location has been detected at EC4A 4AD in the City of London.<br>If different please select the location of the vandalism on the map below:"
+      document.getElementById("text-location").innerHTML = display_text
+    }
+  }
+  catch(err)
+  {
+    display_text = "Your location has been detected at EC4A 4AD in the City of London.<br>If different please select the location of the vandalism on the map below:"
+    document.getElementById("text-location").innerHTML = display_text
   }
 }
 
@@ -150,16 +188,16 @@ if (document.getElementById('send-confirmation-email')) {
   lat = localStorage.getItem("myGPSlat")
   long = localStorage.getItem("myGPSlong")
   var xmlHttp = new XMLHttpRequest();
-  xmlHttp.open("POST", "/vandalism/send-confirmation-email?lon=" + long + "&lat=" + lat, false);
+  xmlHttp.open("POST", "/vandalism/send-confirmation-email?lon=" + long + "&lat=" + lat, true);
   xmlHttp.send(null)
-  window.console.info(xmlHttp.responseText)
+  //window.console.info(xmlHttp.responseText)
 }
 
 if (document.getElementById('send-progress-email')) {
   lat = localStorage.getItem("myGPSlat")
   long = localStorage.getItem("myGPSlong")
   var xmlHttp = new XMLHttpRequest();
-  xmlHttp.open("POST", "/vandalism/send-progress-email?lon=" + long + "&lat=" + lat, false);
+  xmlHttp.open("POST", "/vandalism/send-progress-email?lon=" + long + "&lat=" + lat, true);
   xmlHttp.send(null)
-  window.console.info(xmlHttp.responseText)
+  //window.console.info(xmlHttp.responseText)
 }
