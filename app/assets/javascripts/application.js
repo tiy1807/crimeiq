@@ -108,6 +108,10 @@ if (document.getElementById('responsible-la')) {
     lat = localStorage.getItem("myGPSlat")
     long = localStorage.getItem("myGPSlong")
     xmlHttp.open("GET", "https://api.postcodes.io/postcodes?lon=" + long + "&lat=" + lat, true);
+    xmlHttp.onerror = function () {
+      display_text = "This is being dealt with by the City of London Council."
+      document.getElementById("responsible-la").innerHTML = display_text
+    }
     xmlHttp.onreadystatechange = function () {
       if (xmlHttp.readyState == 4) {
         window.console.info(xmlHttp.responseText)
@@ -135,6 +139,10 @@ if (document.getElementById('responsible-police')) {
     xmlHttp.open("GET", "https://data.police.uk/api/locate-neighbourhood?q=" + lat + "," + long, true);
     //xmlHttp.setRequestHeader("Access-Control-Allow-Origin","*")
     //xmlHttp.setRequestHeader("Access-Control-Allow-Methods", "GET")
+    xmlHttp.onerror = function () {
+      display_text = "This is being dealt with by the City of London Police Force."
+      document.getElementById("responsible-police").innerHTML = display_text
+    }
     xmlHttp.onreadystatechange = function () {
       if (xmlHttp.readyState == 4) {
         response = JSON.parse(xmlHttp.responseText)
@@ -147,8 +155,7 @@ if (document.getElementById('responsible-police')) {
     xmlHttp.send()
   }
   catch(err) {
-    display_text = "This is being dealt with by the City of London Police Force."
-    document.getElementById("responsible-police").innerHTML = display_text
+
   }
 }
 
